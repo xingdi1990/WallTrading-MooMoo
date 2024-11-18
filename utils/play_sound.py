@@ -1,8 +1,16 @@
 # import simpleaudio as sa
 # from pydub import AudioSegment
 # from pydub.playback import play
-import sounddevice as sd
-import soundfile as sf
+# import sounddevice as sd
+# import soundfile as sf
+
+"""
+Be careful with this py file, it may not work on some systems.
+All functions in this file are not used by default.
+Please check the code before using it.
+"""
+
+
 # using pydub to play audio files instead of simpleaudio
 # simpleaudio is not working on some systems
 # Note: there will be no sound when the code exit immediately
@@ -25,10 +33,14 @@ def order_placed():
     # play(audio)
 
     # Load audio file
-    data, samplerate = sf.read("audio/order_placed.wav")
-    # Play audio
-    sd.play(data, samplerate)
-    sd.wait()
+    # try:
+    #     data, samplerate = sf.read("audio/order_placed.wav")
+    #     # Play audio
+    #     sd.play(data, samplerate)
+    #     sd.wait()
+    # except Exception as e:
+    #     print(f"Error playing sound, {e}")
+    pass
 
 
 def strategy_notified():
@@ -43,7 +55,12 @@ def strategy_notified():
     # play(audio)
 
     # Load audio file
-    data, samplerate = sf.read("audio/strategy_notified.wav")
-    # Play audio
-    sd.play(data, samplerate)
-    sd.wait()
+    # try:
+    #     data, samplerate = sf.read("audio/strategy_notified.wav")
+    #     # Play audio
+    #     sd.play(data, samplerate)
+    #     sd.wait()
+    # except Exception as e:
+    #     print(f"Error playing sound, {e}")
+
+    pass

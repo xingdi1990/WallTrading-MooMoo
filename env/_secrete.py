@@ -2,13 +2,11 @@
 Important, please don't share with the public
 """
 
+""" ‼️‼️‼️  please keep your password in SAFE, DO NOT SHARE ‼️‼️‼️"""
+
 """ MooMoo trading setup """
 # trading password, 6 digits
-MooMoo_PWD = '123456'
+MooMoo_PWD = '123456'   # replace with your moomoo trading password
 
+""" ‼️‼️‼️  please keep your password in SAFE, DO NOT SHARE ‼️‼️‼️"""
 
-""" Discord setup to send notification """
-# replace with your own discord bot token
-discord_web_Auth = '*************************************'
-# server channel id
-your_channel_id = 111111111111111111111111

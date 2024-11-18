@@ -2,6 +2,11 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+"""
+This file is not used by default.
+You can make any changes to send the email notification when a trading signal is triggered.
+"""
+
 
 def send_email(from_, to, msg_subject, msg_body, login_email, login_password):
     # create message
@@ -27,7 +32,7 @@ def send_email(from_, to, msg_subject, msg_body, login_email, login_password):
 
 def send_emails(from_, to, bcc: list, msg_subject, msg_body, login_email, login_password):
     # send an email to multiple recipients/ccs
-    bcc_emails = bcc    # BCC
+    bcc_emails = bcc  # BCC
     message = msg_body
 
     msg = MIMEText(message)
@@ -39,4 +44,3 @@ def send_emails(from_, to, bcc: list, msg_subject, msg_body, login_email, login_
         server.starttls()
         server.login(login_email, login_password)
         server.sendmail(from_, [to] + bcc_emails, msg.as_string())
-

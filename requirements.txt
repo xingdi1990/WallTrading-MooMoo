@@ -1,13 +1,7 @@
 numpy
 pandas
-schedule
-requests
-yfinance
-webull
 pandas_ta
-twilio
-moomoo-api
 pandas_market_calendars
-sounddevice
-soundfile
-discord
+schedule
+yfinance
+moomoo-api

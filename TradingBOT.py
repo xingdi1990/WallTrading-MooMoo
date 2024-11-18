@@ -4,51 +4,59 @@
 # Version 1.0
 # Programming Trading based on MooMoo API/OpenD
 
+"""
+# updated: 11/17/2024, final version for open source only
+# Version 2.0
+# for more info, please visit: https://www.patreon.com/LookAtWallStreet
+"""
+
 # MooMoo API Documentation, English:
 # https://openapi.moomoo.com/moomoo-api-doc/en/intro/intro.html
-
 # 官方文档，中文:
 # https://openapi.moomoo.com/moomoo-api-doc/intro/intro.html
 
 from moomoo import *
 import schedule
 
-from discord_bot.discord_notify_human import send_msg_to_discord_request
 from env._secrete import MooMoo_PWD
 from strategy.Your_Strategy import Your_Strategy
 from utils.dataIO import get_current_time, print_current_time, logging_info
-from utils.time_tool import check_if_weekday, is_market_and_extended_hours, is_trading_day
+from utils.time_tool import is_market_and_extended_hours, is_trading_day
 
+""" ⬇️ project setup ⬇️ """
+'''
+Step 1: Set up the environment information
+'''
 # Environment Variables
-MOOMOOOPEND_ADDRESS = "127.0.0.1"  # be same as the OpenD host IP
-MOOMOOOPEND_PORT = 11112  # be same as the OpenD port number
-
-TRADING_ENVIRONMENT = TrdEnv.REAL
+MOOMOOOPEND_ADDRESS = "127.0.0.1"  # should be same as the OpenD host IP, just keep as default
+MOOMOOOPEND_PORT = 11112  # should be same as the OpenD port number, make sure keep both the same
+TRADING_ENVIRONMENT = TrdEnv.REAL  # set up trading environment, real, or simulate/paper trading
 # REAL = "REAL"
 # SIMULATE = "SIMULATE"
 
+'''
+Step 2: Set up the account information
+'''
+TRADING_PWD = MooMoo_PWD  # set up the trading password in the env/_secrete.py file
+SECURITY_FIRM = SecurityFirm.FUTUINC  # set up the security firm based on your broker account registration
+# for U.S. account, use FUTUINC, (default)
+# for HongKong account, use FUTUSECURITIES
+# for Singapore account, use FUTUSG
+# for Australia account, use FUTUAU
 
-TRADING_MARKET = TrdMarket.US       # US market, HK for HongKong, etc.
-# NONE = "N/A"  # 未知
-# HK = "HK"  # 香港市场
-# US = "US"  # 美国市场
-# CN = "CN"  # 大陆市场
-# HKCC = "HKCC"  # 香港A股通市场
-# FUTURES = "FUTURES"  # 期货市场
+'''
+Step 3: Set up the trading information
+'''
+FILL_OUTSIDE_MARKET_HOURS = True  # enable if order fills on extended hours
+TRADING_MARKET = TrdMarket.US  # set up the trading market, US market, HK for HongKong, etc.
+# NONE = "N/A"
+# HK = "HK"
+# US = "US"
+# CN = "CN"
+# HKCC = "HKCC"
+# FUTURES = "FUTURES"
 
-
-TRADING_PWD = MooMoo_PWD
-# MooMoo_PWD = "your moomoo trading password"
-
-
-SECURITY_FIRM = SecurityFirm.FUTUINC
-# FUTUSECURITIES = 'FUTUSECURITIES'
-# FUTUINC = 'FUTUINC'
-# FUTUSG = 'FUTUSG'
-# FUTUAU = 'FUTUAU'
-
-
-FILL_OUTSIDE_MARKET_HOURS = True    # enable if order fills on extended hours
+""" ⏫ project setup ⏫ """
 
 
 # Trader class:
@@ -175,13 +183,6 @@ class Trader:
             return -1, data
 
     def get_positions(self):
-        # usage: data = trader.get_positions()
-        # tqqq_qty = data['TQQQ']['qty']
-        # tqqq_market_val = data['TQQQ']['market_val']
-        # 'stock_name', 'qty', 'can_sell_qty', 'cost_price', 'cost_price_valid', 'market_val', 'nominal_price',
-        # 'pl_ratio', 'pl_ratio_valid', 'pl_val', 'pl_val_valid', 'today_buy_qty', 'today_buy_val', 'today_pl_val',
-        # 'today_trd_val', 'today_sell_qty', 'today_sell_val', 'position_side', 'unrealized_pl', 'realized_pl',
-        # 'currency', 'trade_unit'
         self.init_context()
         if self.unlock_trade():
             ret, data = self.trade_context.position_list_query()
@@ -212,7 +213,7 @@ if __name__ == '__main__':
 
     # schedule the task
     bot_task = schedule.Scheduler()
-    bot_task.every().minute.at(":05").do(strategy.strategy_decision)
+    bot_task.every().minute.at(":05").do(strategy.strategy_decision)    # please change the interval as needed
 
     # print the time every hour showing bot running...
     bkg_task = schedule.Scheduler()
@@ -224,12 +225,6 @@ if __name__ == '__main__':
     while True:
         bkg_task.run_pending()
         if is_market_and_extended_hours() and is_trading_day():
-            try:
-                bot_task.run_pending()
-            except Exception as e:
-                print(get_current_time(), 'Error in the strategy:', e)
-                # uncomment the code below to send error message to discord
-                # send_msg_to_discord_request(f"Bot Error, Fix ASAP: {e}", channel_id=channel_id_dev_bot)
-                time.sleep(1)
-                continue
+            bot_task.run_pending()  # please handle all error in your strategy
+
         time.sleep(1)
