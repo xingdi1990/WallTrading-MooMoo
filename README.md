@@ -5,7 +5,7 @@
 </h1>
 <h4 align="center" style="margin: 0 auto 0 auto;">
    
- Build your own strategy following the example, let the bot trading for you! 
+ Build your own strategy following the example, let the bot trade for you! 
 
  Get market data, analyze data, make decision, place market or limit order, check account info, position status.
 
@@ -53,7 +53,7 @@ python TradingBOT.py
 
 <br>
 
-## 2. TradingBOT of My Own Private Strategy, Showcase:
+## 2. TradingBOT of My Own Private Strategy, Showcases:
 - **TQQQ:**
   
    <img src="https://github.com/user-attachments/assets/f4b37eba-de91-4c7e-913a-8b67b7b96bd2" alt="image" width="600">
