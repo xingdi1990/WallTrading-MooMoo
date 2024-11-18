@@ -27,9 +27,9 @@
 pip install -r requirements.txt
 ```
 
-4. Go to the `env/_secret.py` and fill in your trading password, as well as Discord info if you need.
+4. Go to the `env/_secret.py` and fill in your trading password.
    
-5. Go to the `strategy/Your_Strategy.py`, and replace the example strategy in `strategy_decision(self)` with your own strategy
+5. Go to the `strategy/Your_Strategy.py`, and replace the example strategy in `strategy_decision(self)` with your own strategy.
    
 6. Login to MooMoo/Futu OpenD, setup the port number to `11112` or `11111`, which should be the same as `MOOMOOOPEND_PORT` in `TradingBOT.py`.
 
@@ -53,7 +53,7 @@ python TradingBOT.py
 
 <br>
 
-## 2. TradingBOT of My Own Private Strategy, Showcases:
+## 2. Showcases of My Own Strategy(Wall Bot-Strategy-1):
 - **TQQQ:**
   
    <img src="https://github.com/user-attachments/assets/f4b37eba-de91-4c7e-913a-8b67b7b96bd2" alt="image" width="600">
