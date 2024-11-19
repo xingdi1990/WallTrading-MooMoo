@@ -50,6 +50,7 @@ python TradingBOT.py
 
 - Don't share any API key, secret key, or password.
 - Any questions, please contact: `Discord/Wechat ID: squawkwallstreet`.
+- MooMoo Official API Docs: https://openapi.moomoo.com/moomoo-api-doc/en/intro/intro.html
 
 <br>
 
