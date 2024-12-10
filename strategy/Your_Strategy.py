@@ -18,7 +18,9 @@ updated: 04/09/2024, output formatting
 import yfinance as yf
 from moomoo import *
 from strategy.Strategy import Strategy
-import pandas_ta as pta
+import pandas as pd
+from ta.trend import SMAIndicator
+# import pandas_ta as pta
 from utils.dataIO import read_json_file, write_json_file, logging_info
 from utils.time_tool import is_market_hours
 
@@ -59,19 +61,21 @@ class Your_Strategy(Strategy):
                 df = yf.Ticker(stock).history(interval="1h", actions=False, prepost=False, raise_errors=True)
 
                 # 2. calculate the indicator
-                df['fast_ma'] = pta.sma(df['Close'], length=5)
-                df['slow_ma'] = pta.sma(df['Close'], length=10)
+                df['fast_ma'] = SMAIndicator(df['Close'], window=5).sma_indicator()
+                df['slow_ma'] = SMAIndicator(df['Close'], window=10).sma_indicator()
 
                 price = df['Close'].iloc[-1]
                 qty = self.trading_qty[stock]
 
                 # 3. check the signal and place order
-                if df["fast_ma"] > df["slow_ma"] and df["fast_ma"].shift(1) <= df["slow_ma"].shift(1):
+                if (df['fast_ma'].iloc[-1] > df['slow_ma'].iloc[-1]) and (
+                        df['fast_ma'].iloc[-2] <= df['slow_ma'].iloc[-2]):
                     # Buy when the fast MA crosses above the slow MA.
                     print('BUY Signals')
                     self.strategy_make_trade(action='BUY', stock=stock, qty=qty, price=price)   # place order
 
-                if (df["fast_ma"] < df["slow_ma"]) & (df["fast_ma"].shift(1) >= df["slow_ma"].shift(1)):
+                if (df['fast_ma'].iloc[-1] < df['slow_ma'].iloc[-1]) and (
+                        df['fast_ma'].iloc[-2] >= df['slow_ma'].iloc[-2]):
                     # Sell when the fast MA crosses below the slow MA.
                     print('SELL Signals')
                     self.strategy_make_trade(action='SELL', stock=stock, qty=qty, price=price)  # place order
