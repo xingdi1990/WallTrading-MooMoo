@@ -56,18 +56,34 @@ python TradingBOT.py
 
 ## 2. Showcases of My Own Strategy(Wall Bot-Strategy-1):
 - **TQQQ:**
+
+   ![image](https://github.com/user-attachments/assets/bd6ef009-5267-45b3-9548-fd2cd75adf17)
+
   
    <img src="https://github.com/user-attachments/assets/f4b37eba-de91-4c7e-913a-8b67b7b96bd2" alt="image" width="600">
+
+   
+<br>
 
 
 - **SOXL:**
 
+  ![image](https://github.com/user-attachments/assets/355dfde6-a570-4f90-a461-9289b8d7003d)
+
+
    <img src="https://github.com/user-attachments/assets/4f8a2eae-7131-473d-95b1-8b66ec6d1fee" alt="image" width="600">
 
 
+<br>
+
 - **IbIT, BTC-USD:**
 
+  ![image](https://github.com/user-attachments/assets/655e62d2-ae0f-443b-a5f1-52446dc74beb)
+
+
    <img src="https://github.com/user-attachments/assets/c618b36d-96c0-4285-a529-9d557de8708a" alt="image" width="600">
+
+<br>
 
 - **Others:**
   
