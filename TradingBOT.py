@@ -169,7 +169,10 @@ class Trader:
                 return ret, data
 
             acct_info = {
-                'cash': round(data["cash"][0], 2),
+                # https://openapi.moomoo.com/moomoo-api-doc/en/trade/get-funds.html
+                # Obsolete. Please use 'us_cash' or other fields to get the cash of each currency.
+                # updated 01-07-2025
+                'cash': round(data["us_cash"][0], 2),
                 'total_assets': round(data["total_assets"][0], 2),
                 'market_value': round(data["market_val"][0], 2),
             }
