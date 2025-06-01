@@ -17,6 +17,13 @@
 - Make your bot employed 
 - Make yourself free
 
+<br>
+
+- Questions & Support Discord: https://discord.gg/9uUpjyyqkZ
+
+<br>
+
+
 ## 1. Step by Step Setup:
 1. Install Python: https://www.python.org/downloads/
    
@@ -108,9 +115,8 @@ python TradingBOT.py
    
    <br>
    
-   <a href="https://www.patreon.com/LookAtWallStreet?utm_medium=social&utm_source=twitter&utm_campaign=creatorshare_fan&utm_content=join_link" target="_blank"><img src="https://pbs.twimg.com/card_img/1858336206007779328/nctG9rmR?format=jpg&name=small" alt="Paypal" width="180" ></a>
+   
 
-⏫ Get more info from [LookAtWallStreet](https://www.patreon.com/LookAtWallStreet) on Patreon ⏫
 
 <br>
 
@@ -134,9 +140,8 @@ Please feel free to check my Webull Bot Repo: https://github.com/LukeWang01/Prog
 
 ## 🦋 Supporting Me
 
-<br>
-
-<a href="https://www.buymeacoffee.com/LukeWang" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-
 <a href="https://www.paypal.com/paypalme/ZiluWang?locale.x=en_US" target="_blank"><img src="https://github.com/LukeWang01/Program-Trading-Based-on-Webull/assets/25569658/975ac8a4-2f7d-4b11-9900-707abf8d275a" alt="Paypal" width="180" ></a>
 
+or,
+
+[Donate via Stripe](https://donate.stripe.com/cNi28s1t1agzgDKdbH7AI09)
