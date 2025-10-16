@@ -152,3 +152,4 @@ cython_debug/
 /strategy_position.json
 /.idea
 /env/_secrete.py
+/strategy/BRKB_Strategy.py
