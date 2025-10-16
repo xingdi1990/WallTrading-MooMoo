@@ -20,27 +20,28 @@ from moomoo import *
 from strategy.Strategy import Strategy
 import pandas as pd
 from ta.trend import SMAIndicator
+import time
 # import pandas_ta as pta
 from utils.dataIO import read_json_file, write_json_file, logging_info
 from utils.time_tool import is_market_hours
 
 
-class Your_Strategy(Strategy):
+class BRKB_Strategy(Strategy):
     """
     This is an example strategy class, you can define your own strategy here.
     """
 
     def __init__(self, trader):
         super().__init__(trader)
-        self.strategy_name = "Example_Strategy"
+        self.strategy_name = "BRKB_Strategy"
 
         """⬇️⬇️⬇️ Strategy Settings ⬇️⬇️⬇️"""
 
-        self.stock_trading_list = ["SPY", "QQQ"]
+        self.stock_trading_list = ["BRK-A"]
         self.trading_qty = {
             # please set the trading quantity for each stock
-            "SPY": 88,
-            "QQQ": 88
+            "BRK-A": 0,
+            "BRK-B": 1
         }
 
         self.trading_confirmation = True    # True to enable trading confirmation
@@ -49,7 +50,7 @@ class Your_Strategy(Strategy):
 
         """⬆️⬆️⬆️ Strategy Settings ⬆️⬆️⬆️"""
 
-        print(f"Strategy {self.strategy_name} initialized...")
+        print(f"Strategy {self.strategy_name} initialized...")  # BRK-B
 
     def strategy_decision(self):
         print("Strategy Decision running...")
@@ -57,28 +58,48 @@ class Your_Strategy(Strategy):
         # please modify the following code to match your own strategy
         for stock in self.stock_trading_list:
             try:
-                # 1. get the stock data from quoter, return a pandas dataframe
-                df = yf.Ticker(stock).history(interval="1h", actions=False, prepost=False, raise_errors=True)
+                ticker = yf.Ticker(stock)
+                # df = ticker.history(interval="1h", actions=False, prepost=False, raise_errors=True)
 
-                # 2. calculate the indicator
-                df['fast_ma'] = SMAIndicator(df['Close'], window=5).sma_indicator()
-                df['slow_ma'] = SMAIndicator(df['Close'], window=10).sma_indicator()
+                # Get P/B ratio from ticker info
+                pb_ratio = ticker.info.get('priceToBook', None)
+                print(f"P/B Ratio for {stock}: {pb_ratio}")
+                
+                # Check if P/B ratio is available
+                if pb_ratio is None:
+                    print(f"P/B ratio not available for {stock}, skipping...")
+                    continue
 
-                price = df['Close'].iloc[-1]
-                qty = self.trading_qty[stock]
+                # Get current price
+                price = ticker.fast_info['lastPrice']
+                
+                # Buy signal based on P/B ratio (use elif to avoid multiple triggers)
+                if pb_ratio <= 1.3:
+                    self.strategy_make_trade(action='BUY', stock=stock, qty=3, price=price)
+                elif pb_ratio <= 1.4:
+                    self.strategy_make_trade(action='BUY', stock=stock, qty=2, price=price)
+                elif pb_ratio <= 1.5:
+                    self.strategy_make_trade(action='BUY', stock=stock, qty=1, price=price)
+                    
+                # # 2. calculate the indicator
+                # df['fast_ma'] = SMAIndicator(df['Close'], window=5).sma_indicator()
+                # df['slow_ma'] = SMAIndicator(df['Close'], window=10).sma_indicator()
 
-                # 3. check the signal and place order
-                if (df['fast_ma'].iloc[-1] > df['slow_ma'].iloc[-1]) and (
-                        df['fast_ma'].iloc[-2] <= df['slow_ma'].iloc[-2]):
-                    # Buy when the fast MA crosses above the slow MA.
-                    print('BUY Signals')
-                    self.strategy_make_trade(action='BUY', stock=stock, qty=qty, price=price)   # place order
+                # price = df['Close'].iloc[-1]
+                # qty = self.trading_qty[stock]
 
-                if (df['fast_ma'].iloc[-1] < df['slow_ma'].iloc[-1]) and (
-                        df['fast_ma'].iloc[-2] >= df['slow_ma'].iloc[-2]):
-                    # Sell when the fast MA crosses below the slow MA.
-                    print('SELL Signals')
-                    self.strategy_make_trade(action='SELL', stock=stock, qty=qty, price=price)  # place order
+                # # 3. check the signal and place order
+                # if (df['fast_ma'].iloc[-1] > df['slow_ma'].iloc[-1]) and (
+                #         df['fast_ma'].iloc[-2] <= df['slow_ma'].iloc[-2]):
+                #     # Buy when the fast MA crosses above the slow MA.
+                #     print('BUY Signals')
+                #     self.strategy_make_trade(action='BUY', stock=stock, qty=qty, price=price)   # place order
+
+                # if (df['fast_ma'].iloc[-1] < df['slow_ma'].iloc[-1]) and (
+                #         df['fast_ma'].iloc[-2] >= df['slow_ma'].iloc[-2]):
+                #     # Sell when the fast MA crosses below the slow MA.
+                #     print('SELL Signals')
+                #     self.strategy_make_trade(action='SELL', stock=stock, qty=qty, price=price)  # place order
 
                 time.sleep(1)  # sleep 1 second to avoid the quote limit
             except Exception as e:

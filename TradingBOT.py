@@ -19,7 +19,7 @@ from moomoo import *
 import schedule
 
 from env._secrete import MooMoo_PWD
-from strategy.Your_Strategy import Your_Strategy
+from strategy.BRKB_Strategy import BRKB_Strategy
 from utils.dataIO import get_current_time, print_current_time, logging_info
 from utils.time_tool import is_market_and_extended_hours, is_trading_day
 
@@ -29,7 +29,7 @@ Step 1: Set up the environment information
 '''
 # Environment Variables
 MOOMOOOPEND_ADDRESS = "127.0.0.1"  # should be same as the OpenD host IP, just keep as default
-MOOMOOOPEND_PORT = 11112  # should be same as the OpenD port number, make sure keep both the same
+MOOMOOOPEND_PORT = 11111  # should be same as the OpenD port number, make sure keep both the same
 TRADING_ENVIRONMENT = TrdEnv.REAL  # set up trading environment, real, or simulate/paper trading
 # REAL = "REAL"
 # SIMULATE = "SIMULATE"
@@ -211,7 +211,7 @@ if __name__ == '__main__':
     print(get_current_time(), 'TradingBOT is running...')
     # Create a trader and strategy object
     trader = Trader()
-    strategy = Your_Strategy(trader)
+    strategy = BRKB_Strategy(trader)
     print("trader and strategy objects created...")
 
     # schedule the task
